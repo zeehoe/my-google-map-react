@@ -14,7 +14,7 @@ export default function Home() {
     libraries,
   });
   const dispatch = useDispatch();
-  const places = useSelector(state => state.historyPlaces.historyPlaces,shallowEqual);
+  const places = useSelector(state => state.historyPlaces.historyPlaces);
   const onItemClick = (item) =>{
     setCurrentFocusLocation(item.latlng)
   }

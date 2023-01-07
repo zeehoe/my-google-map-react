@@ -26,7 +26,7 @@ export default function PlacesAutoCompleteBox() {
     () =>
       debounce((request, callback) => {
         autocompleteService.current.getPlacePredictions(request, callback);
-      }, 400),
+      }, 600),
     []
   );
 
@@ -45,6 +45,7 @@ export default function PlacesAutoCompleteBox() {
       .then(results => getLatLng(results[0]))
       .then(latLng => {
         address.latlng = latLng
+        console.log("dispatch save history")
         dispatch(saveHistoryPlaces(
           address
         ));
@@ -106,9 +107,11 @@ export default function PlacesAutoCompleteBox() {
       onChange={(event, newValue) => {
         setOptions(newValue ? [newValue, ...options] : options);
         setValue(newValue);
+        console.log("onchange",newValue)
       }}
       onInputChange={(event, newInputValue) => {
         setInputValue(newInputValue);
+        console.log("onInputChange",newInputValue)
       }}
       renderInput={(params) => (
         <TextField {...params} label="Search a location" fullWidth />
