@@ -4,7 +4,7 @@ import PlacesAutoCompleteBox from "../components/PlacesAutoCompleteBox";
 import '../styles/home.scss';
 import HistoryList from "../components/HistoryList";
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 
 const libraries = ['places'];
 export default function Home() {
@@ -14,12 +14,13 @@ export default function Home() {
     libraries,
   });
   const dispatch = useDispatch();
-  const places = useSelector(state => state.historyPlaces.historyPlaces);
+  const places = useSelector(state => state.historyPlaces.historyPlaces,shallowEqual);
   const onItemClick = (item) =>{
     setCurrentFocusLocation(item.latlng)
   }
 
   useEffect(()=>{
+    console.log('places detected update')
     setCurrentFocusLocation(places.length>0?places[places.length-1].latlng:'')
   },[places])
 

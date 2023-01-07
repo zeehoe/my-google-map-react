@@ -12,10 +12,12 @@ export default function historyPlaces(state = initialState, action) {
           historyPlaces: [...state.historyPlaces, action.payload]
         }
       case type.REMOVE_HISTORY_PLACES:
-        const newList = [...state.historyPlaces].filter((place,index)=>index != action.payload)
+        // const newList = Object.assign([],[...state.historyPlaces].filter((place,index)=>index != action.payload))
+        // const isSame = newList === state.historyPlaces
+        // console.log("new place list " , newList)
         return {
           ...state,
-          historyPlaces: newList
+          historyPlaces: state.historyPlaces.filter((place,index)=>index != action.payload),
         }
 
     default:
