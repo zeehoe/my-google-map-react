@@ -45,7 +45,6 @@ export default function PlacesAutoCompleteBox() {
       .then(results => getLatLng(results[0]))
       .then(latLng => {
         address.latlng = latLng
-        console.log("dispatch save history")
         dispatch(saveHistoryPlaces(
           address
         ));

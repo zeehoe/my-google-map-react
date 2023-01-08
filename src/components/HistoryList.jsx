@@ -4,17 +4,29 @@ import { useDispatch } from "react-redux";
 import { removeHistoryPlaces } from "../redux/actions/historyPlaces";
 import { v4 as uuidv4 } from "uuid";
 import React, { useState } from "react";
+import useCheckMobileScreen from "../helpers/useCheckMobileScreen";
 
 export default function HistoryList({ data, onItemClick }) {
   const dispatch = useDispatch();
-  const maxDisplay = 3;
+  const maxDisplayDesktop = 5;
+  const maxDisplayMobile = 3;
+  const [maxDisplay, setMaxDisplay] = useState(maxDisplayMobile);
   const highlightColor = "#AAFF00";
   const [currentHighlight, setCurrentHighlight] = useState(0);
+  const isMobile = useCheckMobileScreen();
+
   React.useEffect(() => {
     if (data.length > 0) {
       setCurrentHighlight(data.length - 1);
     }
   }, [data]);
+  React.useEffect(() => {
+    if (isMobile) {
+      setMaxDisplay(maxDisplayMobile);
+    } else {
+      setMaxDisplay(maxDisplayDesktop);
+    }
+  }, [isMobile]);
 
   const handleDelete = (index) => {
     dispatch(removeHistoryPlaces(index));
@@ -25,7 +37,8 @@ export default function HistoryList({ data, onItemClick }) {
     setCurrentHighlight(index);
   };
 
-  const getAffectedIndex = (currentMapIndex) => {
+  const getOriDataIndex = (currentMapIndex) => {
+    console.log(data.length,maxDisplay,currentMapIndex)
     return data.length > maxDisplay
       ? data.length - maxDisplay + currentMapIndex
       : currentMapIndex;
@@ -35,22 +48,24 @@ export default function HistoryList({ data, onItemClick }) {
     <Stack direction="row" spacing={1}>
       {data
         .slice(Math.max(0, data.length - maxDisplay), data.length)
-        .map((item, index) => (
+        .map((item, displayedIndex) => (
           <Chip
             style={{
               maxWidth: 95 / Math.min(maxDisplay, data.length) + "vw",
               background:
-                getAffectedIndex(index) == currentHighlight
+                getOriDataIndex(displayedIndex) == currentHighlight
                   ? highlightColor
                   : "",
               fontWeight:
-                getAffectedIndex(index) == currentHighlight ? "bold" : "normal",
+                getOriDataIndex(displayedIndex) == currentHighlight
+                  ? "bold"
+                  : "normal",
             }}
-            variant={index == currentHighlight ? "filled" : "outlined"}
+            variant={getOriDataIndex(displayedIndex) == currentHighlight ? "filled" : "outlined"}
             key={uuidv4()}
             label={item.description}
-            onClick={() => onButtonClick(item, index)}
-            onDelete={() => handleDelete(index)}
+            onClick={() => onButtonClick(item, getOriDataIndex(displayedIndex))}
+            onDelete={() => handleDelete(getOriDataIndex(displayedIndex))}
           />
         ))}
     </Stack>
