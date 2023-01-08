@@ -20,7 +20,6 @@ export default function Home() {
   }
 
   useEffect(()=>{
-    console.log('places detected update')
     setCurrentFocusLocation(places.length>0?places[places.length-1].latlng:'')
   },[places])
 
