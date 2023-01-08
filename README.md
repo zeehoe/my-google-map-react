@@ -7,7 +7,7 @@ Have a nice day :)
 ### Auto complete text box integrated with Google Places Api
 ![Auto complete textbox](screenshots/auto_complete_mui_textbox.png)
 ### History Search List with easy click to recheck previous location
-<div style='max-width:300px'>
+<div style='max-width:300px' markdown="1">
     ![History List](screenshots/easy_click_history.png)
 </div>
 
