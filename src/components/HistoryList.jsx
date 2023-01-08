@@ -38,7 +38,6 @@ export default function HistoryList({ data, onItemClick }) {
   };
 
   const getOriDataIndex = (currentMapIndex) => {
-    console.log(data.length,maxDisplay,currentMapIndex)
     return data.length > maxDisplay
       ? data.length - maxDisplay + currentMapIndex
       : currentMapIndex;
