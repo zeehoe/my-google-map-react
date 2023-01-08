@@ -3,7 +3,7 @@ This is a google map react application using redux-saga.
 Please define an env file with a key REACT_APP_GOOGLE_MAP_API_KEY for the project to work.
 Have a nice day :)
 
-## Features. 
+## Features
 ### Auto complete text box integrated with Google Places Api
 <img src="screenshots/auto_complete_mui_textbox.png"/>
 
